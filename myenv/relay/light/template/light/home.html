@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Q-Electronics</title>
+		<script>
+			function start() {
+				updateTime();
+				updateData();
+			}
+
+			function updateTime() {
+				var today = new Date();
+				var h = today.getHours();
+				var m = today.getMinutes();
+				var s = today.getSeconds();
+				m = checkTime(m);
+				s = checkTime(s);
+				document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
+
+				setTimeout(updateTime, 500);
+			}
+
+			function updateData() {
+			  fetch("/data")
+				.then((resp) => resp.json())
+				.then(function(data) {
+					console.log(data);
+					document.getElementById('db_temp').innerHTML = data.db_temp;
+					document.getElementById('db_humid').innerHTML = data.db_humid;
+				})
+				.catch(function(error) {
+					console.log(error);
+				}); 
+
+				setTimeout(updateData, 3000);
+			}
+			function checkTime(i) {
+			  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+			  return i;
+			}
+		</script>
+</head>
+
+
+<style>
+	table {
+		font-family: arial, sans-serif;
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	td,
+	th {
+		border: 1px solid #000000;
+		text-align: left;
+		padding: 8px;
+	}
+
+	tr:nth-child(even) {
+		background-color: #a6c8ff;
+	}
+</style>
+
+<body onload="start()">
+	<h1 style="text-align: center;">Digital branch temperature monitoring system</h1> 
+	<form action="" method="post">
+		{% csrf_token %}
+
+		<!--
+		<div style="text-align: center;">  
+			<input type="submit" name="on" value=" Turn on sensor " />
+			<input type="submit" name="off" value=" Turn off sensor " />
+		</div>
+		-->
+
+		<h2>Q-Electronics</h2>
+		<script> document.write(new Date().toLocaleDateString()); </script>
+		<div id="time"></div>
+
+
+		<!----------------------------------------------------->
+		<!--<h1>Hi {{ person.firstname }} {{ person.lastname }}</h1>-->
+
+		<!----------------------------------------------------->
+
+		<table>
+			<tr>
+				<th>Area</th>
+				<th>Temp (C')</th>
+				<th>Humi (%)</th>
+			</tr>
+			<tr>
+				<td>Digital branch</td>
+				<td id="db_temp"></td>
+				<td id="db_humid"></td>
+			</tr>
+			<tr>
+				<td>Area 1</td>
+				<td>-</td>
+				<td>-</td>
+			</tr>
+
+			<tr>
+				<td>Area 2</td>
+				<td>-</td>
+				<td>-</td>
+			</tr>
+
+			<tr>
+				<td>Area 3</td>
+				<td>-</td>
+				<td>-</td>
+			</tr>
+
+		</table>
+
+
+
+</body>
+
+</html>

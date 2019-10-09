@@ -1,0 +1,68 @@
+
+
+	<!doctype html>
+	<html>
+
+	<head>
+		<title>Temperature in LQID360</title>
+		<script src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
+		<script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+		<style>
+		canvas {
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+		</style>
+	</head>
+
+	<body>
+		<div class="container">
+		<div class="wrapper">
+			<canvas id="Graph"></canvas>
+		</div>
+		</div>
+		
+		<script>
+
+
+		var config = {
+			type: 'line',
+			data: {
+				labels: ['15:24:08','15:24:16','15:24:21','15:24:27','15:24:32'],
+				datasets: [{
+					label: 'Daily Temperature',
+					backgroundColor: window.chartColors.red,
+					borderColor: window.chartColors.red,
+					fill: false,
+					data: [
+					23.0,23.0,23.0,23.0,23.0],
+				}]
+			},
+			options: {
+				responsive: true,
+				title: {
+					display: true,
+					text: 'Temperature Sensor DHT11'
+				},
+				scales: {
+					xAxes: [{
+						display: true,
+					}],
+					yAxes: [{
+						display: true,
+						
+					}]
+				}
+			}
+		};
+
+		window.onload = function() {
+			var ctx = document.getElementById('Graph').getContext('2d');
+			window.myLine = new Chart(ctx, config);
+		};
+
+		</script>
+	</body>
+
+	</html>
