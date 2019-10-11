@@ -5,6 +5,7 @@ import sys
 
 
 def main():
+    os.chdir("/home/pi/Desktop/DHT-dashboard/myenv/relay/")
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'relay.settings')
     try:
         from django.core.management import execute_from_command_line
